@@ -1,0 +1,30 @@
+
+.grid {
+    display: grid;
+    grid-template-columns: 3rem 3rem 3rem 3rem 3rem 3rem 3rem 3rem 3rem 3rem 3rem 3rem 3rem 3rem 3rem 3rem;
+    grid-template-rows:    3rem 3rem 3rem 3rem 3rem 3rem 3rem 3rem 3rem 3rem 3rem 3rem 3rem 3rem 3rem 3rem;
+}
+
+.container {
+    display: flex;
+}
+
+.controls {
+    display: flex;
+    flex-direction: column;
+
+    margin-left: 0.5rem;
+}
+
+button {
+    flex-grow: 4;
+}
+
+.stop {
+    background-color: rgb(226, 30, 30);
+}
+
+
+.go {
+    background-color: rgb(48, 194, 48);
+}

@@ -1,0 +1,14 @@
+
+.cell {
+    width: 3rem;
+    height: 3rem;
+    border: 1px solid gray;
+}
+
+.on {
+    background-color: black;
+}
+
+.off {
+    background-color: white;
+}
