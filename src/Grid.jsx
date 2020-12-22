@@ -67,9 +67,9 @@ function useGrid(row, column) {
         let right = [(ix-1)-column,ix-column,ix-1,(ix-1)+column,ix+column];
         let center = [(ix-1)-column,ix-column,(ix-column)+1,ix-1,ix+1,(ix-1)+column,ix+column,ix+column+1];
         let cur;
-        if ((ix+1) % column === 0) {
+        if (ix % column === 0) {
             cur = left;
-        } else if ((ix+1) % column === 1) {
+        } else if (ix % column === (column-1)) {
             cur = right;
         } else {
             cur = center;
