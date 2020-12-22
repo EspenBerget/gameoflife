@@ -1,7 +1,37 @@
 
 import './Grid.css';
 import Cell from './Cell';
+import Example from './Example';
 import { useEffect, useState } from 'react';
+
+function getExamples(row, column) {
+    let basic = Array(row*column).fill(false);
+
+    let center = (row*column) / 2;
+    let half = column / 2;
+    let origin = center + half;
+
+    let toad = basic.slice();
+    toad[origin] = true;
+    toad[origin+1] = true;
+    toad[origin-1] = true;
+    toad[origin+column] = true;
+    toad[origin+column-1] = true;
+    toad[origin+column-2] = true;
+
+    let funky = basic.slice();
+    funky[origin] = true;
+    funky[origin+1] = true;
+    funky[origin-1] = true;
+    funky[origin-column] = true;
+    funky[origin+column] = true;
+
+    
+    return [
+        ["toad", toad],
+        ["funky", funky]
+    ];
+}
 
 function useGrid(row, column) {
     const [ grid, setGrid ] = useState(Array(row*column).fill(false));
@@ -61,12 +91,14 @@ function useGrid(row, column) {
         setGrid(new_grid.map(nextState));
     }
 
-    return { grid, flip, step, clear}
+    return { grid, flip, step, clear, setGrid }
 }
 
 function Grid(props) {
-    const { grid, flip, step, clear } = useGrid(props.row, props.column);
+    const { grid, flip, step, clear, setGrid } = useGrid(props.row, props.column);
     const [ isRunning, setRunning] = useState(false);
+
+    const examples = getExamples(props.row, props.column);
 
     useEffect(() => {
         let i;
@@ -77,6 +109,11 @@ function Grid(props) {
 
         return () => { clearInterval(i) };
     });
+
+    function loadExample(arr) {
+        setRunning(false);
+        setGrid(arr.slice());
+    }
 
     function run() {
         setRunning(true);
@@ -95,9 +132,16 @@ function Grid(props) {
             </div>
             <div className="controls">
                 <button onClick={step}>Step</button>
-                <button className={!isRunning && "go"}  onClick={run}>Run</button>
-                <button className={isRunning && "stop"} onClick={stop}>Stop</button>
+                <button className={!isRunning ? "go" : undefined}  onClick={run}>Run</button>
+                <button className={isRunning ? "stop" : undefined} onClick={stop}>Stop</button>
                 <button onClick={clear}>Clear</button>
+            </div>
+            <div className="examples">
+                <h3>Examples</h3>
+                { examples.map(([title, arr], ix) => 
+                    <Example key={ix} title={title} whenPressed={() => loadExample(arr)} />
+                  )
+                }
             </div>
         </div>
     );

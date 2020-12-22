@@ -28,3 +28,11 @@ button {
 .go {
     background-color: rgb(48, 194, 48);
 }
+
+
+.examples {
+    margin-left: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
